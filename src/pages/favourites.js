@@ -11,9 +11,9 @@ return (
     <Container>
      <Row className="gy-4">
         {favouritesList.length > 0 ? (
-          favouritesList.map((ObjectID) => (
-            <Col lg={3} key={currentObjectID}>
-              <ArtworkCard objectID={currentObjectID} />
+          favouritesList.map((objectID) => (
+            <Col lg={3} key={objectID}>
+              <ArtworkCard objectID={objectID} />
             </Col>
           ))
         ) : (

@@ -20,7 +20,7 @@ const ArtworkCardDetail = ({ objectID }) => {
     setShowAdded(favouritesList.includes(objectID)); 
   }, [favouritesList, objectID]);
 
-  const handleFavouritesClick = () =>{
+  const handleFavouritesClick = () => {
     if(showAdded){
       setFavouritesList(current => current.filter(fav => fav != objectID));
     }
@@ -28,6 +28,7 @@ const ArtworkCardDetail = ({ objectID }) => {
       setFavouritesList(current => [...current, objectID]);
     }
   }
+  
 
   if (error) {
     return <Error statusCode={404} />;
