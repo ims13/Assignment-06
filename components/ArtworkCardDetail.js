@@ -1,12 +1,33 @@
-import React from 'react';
-import { Card } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Card, Button } from 'react-bootstrap';
+
 import useSWR  from 'swr';
 import Error from 'next/error';
 
+import {useAtom} from 'jotai'
+import {favouritesAtom} from '../store'
+
 const ArtworkCardDetail = ({ objectID }) => {
-  const { data, error } = useSWR(
-    `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`
+  const { data, error } = useSWR( objectID ?
+    `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}` : null
   );
+  // Conditional Fetching:	const { data, error } = useSWR(objectID ? `someUrl/${objectID}` : null);
+
+  const [favouritesList, setFavouritesList] = useAtom(favouritesAtom);
+  const [showAdded, setShowAdded] = useState(false);
+
+  useEffect(()=>{
+    setShowAdded(favouritesList.includes(objectID)); 
+  }, [favouritesList, objectID]);
+
+  const handleFavouritesClick = () =>{
+    if(showAdded){
+      setFavouritesList(current => current.filter(fav => fav != objectID));
+    }
+    else{
+      setFavouritesList(current => [...current, objectID]);
+    }
+  }
 
   if (error) {
     return <Error statusCode={404} />;
@@ -42,24 +63,33 @@ const ArtworkCardDetail = ({ objectID }) => {
       {imageSrc && <Card.Img variant="top" src={imageSrc} />}
       <Card.Body>
         <Card.Title>{artworkTitle}</Card.Title>
+
         <Card.Text>
           <strong>Date:</strong> {artworkDate}<br />
           <strong>Classification:</strong> {artworkClassification}<br />
           <strong>Medium:</strong> {artworkMedium}<br />
-          <br />
-          {artistDisplayName && (
-            <>
-              <strong>Artist:</strong> {artistName}<br />
-              <strong>Wikidata:</strong>{' '}
-              <a href={artistWikidata_URL} target="_blank" rel="noreferrer">
-                wiki
-              </a>
-              <br />
-            </>
-          )}
+           <br />
+                {artistDisplayName && artistWikidata_URL && (
+                  <>
+                    <strong>Artist:</strong> {artistName}<br />
+                    <strong>Wikidata:</strong>{' '}
+                    <a href={artistWikidata_URL} target="_blank" rel="noreferrer">
+                      wiki
+                    </a>
+                    <br />
+                  </>
+            )}
           <strong>Credit Line:</strong> {artworkCreditLine}<br />
           <strong>Dimensions:</strong> {artworkDimensions}<br />
+          <Button
+            variant = {showAdded ? 'primary' : 'outline-primary'}
+            onClick={handleFavouritesClick}   
+            >
+              {showAdded ? '+ Favourite (added)' : '+ Favourite' }
+            </Button>
+            
         </Card.Text>
+
       </Card.Body>
     </Card>
   );

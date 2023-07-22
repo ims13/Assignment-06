@@ -1,5 +1,16 @@
 
 // import React from 'react';
+/*********************************************************************************
+*  WEB422 – Assignment 4
+*  I declare that this assignment is my own work in accordance with Seneca Academic Policy.  
+*  No part of this assignment has been copied manually or electronically from any other source
+*  (including web sites) or distributed to other students.
+* 
+*  Name: __Idriss Lufungula____ Student ID: __1518 38208___ Date: ___07 july 2023___
+*  Netlify Link: https://tranquil-semifreddo-62f7df.netlify.app
+*
+********************************************************************************/ 
+
 import { Row, Col, Image } from 'react-bootstrap';
 
 const Home = () => {

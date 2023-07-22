@@ -1,5 +1,6 @@
 // pages/artwork/index.js
 
+import validObjectIDList from '../../../public/data/validObjectIDList.json'
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Pagination, Card } from 'react-bootstrap';
 import { useRouter } from 'next/router';
@@ -8,6 +9,7 @@ import useSWR from 'swr';
 import Error from 'next/error';
 
 import ArtworkCard from '../../../components/ArtworkCard';
+
 
 
 const PER_PAGE = 12;
@@ -21,10 +23,25 @@ const Artwork = () => {
   let finalQuery = router.asPath.split('?')[1];
 
   const { data, error } = useSWR(`https://collectionapi.metmuseum.org/public/collection/v1/search?${finalQuery}`);
+
+   // Make use of the "useEffect" hook such that data value (from SWR) 
+   useEffect(() => {
+  
+   if (data && data.objectIDs) {
+    // let filter all objectID 
+   let filteredResults = validObjectIDList.objectIDs.filter( x => data.objectIDs?.includes(x));
+    // declare a result array If data is not null / undefined, 
+   const results = [];
+     for (let i = 0; i < filteredResults.length; i += PER_PAGE) {
+       const chunk = filteredResults.slice(i, i + PER_PAGE);
+       results.push(chunk);  
+   }
+   setArtworkList(results);
+     //set the page value in the state to 1
+     setPage(1);
+   }
+ }, [data]);
  
-
-
-
   //Declare two functions: previousPage() and nextPage() with logic either decrease or increase the page value
   const previousPage = () => {
     if (page > 1) {
@@ -38,21 +55,6 @@ const Artwork = () => {
     }
   };
 
-  // Make use of the "useEffect" hook such that data value (from SWR) 
-  useEffect(() => {
-    // declare a result array If data is not null / undefined, 
-    const results = [];
-    if (data && data.objectIDs) {
-      for (let i = 0; i < data.objectIDs.length; i += PER_PAGE) {
-        const chunk = data.objectIDs.slice(i, i + PER_PAGE);
-        results.push(chunk);
-      
-    }
-    setArtworkList(results);
-      //set the page value in the state to 1
-      setPage(1);
-    }
-  }, [data]);
 
   if (error) {
     return <Error statusCode={404} />;

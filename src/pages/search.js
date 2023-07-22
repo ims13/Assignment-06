@@ -5,10 +5,15 @@ import { useRouter } from 'next/router';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
+import { searchHistoryAtom } from '../../store';
+import { useAtom } from 'jotai';
+
+
 const AdvancedSearch = () => {
   const router = useRouter();
   const { register, handleSubmit, formState: { errors } } = useForm();
-
+  const [searchHistory, setSearchHistory ] = useAtom(searchHistoryAtom);    // get a reference to the "searchHistory" from the "searchHistoryAtom" 
+  // [] return for an array and {} return an object
   const submitForm = (data) => {
     let queryString = 'searchBy=true';
 
@@ -23,6 +28,8 @@ const AdvancedSearch = () => {
     queryString += `&isOnView=${data.isOnView || false}`;
     queryString += `&isHighlight=${data.isHighlight || false}`;
     queryString += `&q=${data.q}`;
+
+    setSearchHistory(current => [...current, queryString]);    // add the computed queryString value to the searchHistory.
 
     router.push(`/artwork?${queryString}`);
   };
@@ -75,7 +82,6 @@ const AdvancedSearch = () => {
          <Col>
          <Form.Check type="checkbox" label="Highlighted" name="isHighlight" {...register('isHighlight')}  />
          <Form.Check type="checkbox" label="Currently on View" name="isOnView" {...register('isOnView')} />
-
          </Col>
        </Row>
 

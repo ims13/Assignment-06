@@ -42,6 +42,7 @@ export default function ArtworkCard ({ objectID }) {
 
   return (
     <Card style={{ width: '18rem' }}>
+     {/* // <Card.Img variant="top" src={imageSrc} alt="Artwork" /> */}
       <Card.Img variant="top" src={imageSrc} alt="Artwork" style={{height: '250px', objectFit: 'cover'}} />
 
       <Card.Body>
