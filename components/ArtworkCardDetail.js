@@ -6,6 +6,7 @@ import Error from 'next/error';
 
 import {useAtom} from 'jotai'
 import {favouritesAtom} from '../store'
+import { addToFavourites, removeFromFavourites } from "../lib/userData";
 
 const ArtworkCardDetail = ({ objectID }) => {
   const { data, error } = useSWR( objectID ?
@@ -17,15 +18,17 @@ const ArtworkCardDetail = ({ objectID }) => {
   const [showAdded, setShowAdded] = useState(false);
 
   useEffect(()=>{
-    setShowAdded(favouritesList.includes(objectID)); 
-  }, [favouritesList, objectID]);
+    setShowAdded(favouritesList?.includes(objectID)); 
+  }, [favouritesList]);
 
-  const handleFavouritesClick = () => {
-    if(showAdded){
-      setFavouritesList(current => current.filter(fav => fav != objectID));
-    }
-    else{
-      setFavouritesList(current => [...current, objectID]);
+
+  async function handleFavouritesClick() {
+    if (showAdded) {
+      setFavouritesList(await removeFromFavourites(props.objectID));
+      setShowAdded(false);
+    } else {
+      setFavouritesList(await addToFavourites(props.objectID));
+      setShowAdded(true);
     }
   }
   

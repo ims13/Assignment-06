@@ -6,6 +6,9 @@ import ArtworkCard from '../../components/ArtworkCard';
 
 const Favorites = ()=>{
   const [favouritesList] = useAtom(favouritesAtom);
+  if (!favouritesList) return null;
+
+  if (favouritesList) {
 
 return (
     <Container>
@@ -37,6 +40,8 @@ return (
 );
 
 // Important Note: Pagination is not required for this component
+}
+
 }
 
 export default Favorites;

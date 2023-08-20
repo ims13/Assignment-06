@@ -16,7 +16,6 @@ const router = useRouter();
             </Col>
         </Row>
     );
-
  }
 
 export default ArtworkDetail;

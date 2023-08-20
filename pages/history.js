@@ -7,9 +7,12 @@ import { useRouter } from "next/router";
 import styles from '../styles/History.module.css';
 import { ListGroup, Card, Button } from "react-bootstrap";
 
+import { removeFromHistory } from "../../lib/userData";
+
 
 const History = () =>{
     const router = useRouter();
+    if(!favouritesList) return null;
 
     const [searchHistory, setSearchHistory] = useAtom(searchHistoryAtom)
 
@@ -26,14 +29,10 @@ const historyClicked = (e, index) =>{
 
 }
 
-const removeHistoryClicked = (e, index) =>{
+const removeHistoryClicked = async (e, index) =>{
 
     e.stopPropagation(); // stop the event from trigging other events
-    setSearchHistory(current => {
-        let x = [...current];
-        x.splice(index, 1)
-        return x;
-});
+    	setSearchHistory(await removeFromHistory(searchHistory[index])) 
 }
 
 return (

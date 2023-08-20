@@ -1,12 +1,12 @@
 
 // import React from 'react';
 /*********************************************************************************
-*  WEB422 – Assignment 5
+*  WEB422 – Assignment 6
 *  I declare that this assignment is my own work in accordance with Seneca Academic Policy.  
 *  No part of this assignment has been copied manually or electronically from any other source
 *  (including web sites) or distributed to other students.
 * 
-*  Name: __Idriss Lufungula____ Student ID: __1518 38208___ Date: ___21 july 2023___
+*  Name: __Idriss Lufungula____ Student ID: __1518 38208___ Date: ___04 aug 2023___
 *  Netlify Link: on mail please ma'am
 *
 ********************************************************************************/ 

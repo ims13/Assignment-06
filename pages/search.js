@@ -7,14 +7,15 @@ import { useForm } from 'react-hook-form';
 
 import { searchHistoryAtom } from '../../store';
 import { useAtom } from 'jotai';
-
+import { addToHistory } from "../../lib/userData";
 
 const AdvancedSearch = () => {
   const router = useRouter();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [searchHistory, setSearchHistory ] = useAtom(searchHistoryAtom);    // get a reference to the "searchHistory" from the "searchHistoryAtom" 
   // [] return for an array and {} return an object
-  const submitForm = (data) => {
+  async function submitForm (data) {
+
     let queryString = 'searchBy=true';
 
     if (data.geoLocation) {
@@ -29,7 +30,7 @@ const AdvancedSearch = () => {
     queryString += `&isHighlight=${data.isHighlight || false}`;
     queryString += `&q=${data.q}`;
 
-    setSearchHistory(current => [...current, queryString]);    // add the computed queryString value to the searchHistory.
+    setSearchHistory(await addToHistory(queryString));  // add the computed queryString value to the searchHistory.
 
     router.push(`/artwork?${queryString}`);
   };
@@ -71,7 +72,7 @@ const AdvancedSearch = () => {
                 Case Sensitive String (e.g., Case Sensitive String (ie &quot;Europe&quot;,&quot;France&quot;, &quot;Paris&quot;, 
                                                                        &quot;Sculpture&quot;,
                                                                        &quot;Textiles&quot;, etc.), with
-                   multiple values separated by the | operator
+                   multiple values separated by the | operator)
             </Form.Text>
            </Form.Group>
          </Col>

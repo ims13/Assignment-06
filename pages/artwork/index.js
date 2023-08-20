@@ -10,8 +10,6 @@ import Error from 'next/error';
 
 import ArtworkCard from '../../../components/ArtworkCard';
 
-
-
 const PER_PAGE = 12;
 
 const Artwork = () => {
