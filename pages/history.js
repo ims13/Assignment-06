@@ -1,20 +1,20 @@
 import React from 'react';
 
 import { useAtom } from "jotai";
-import { searchHistoryAtom } from "../../store";
-
+import { searchHistoryAtom } from '../store';
 import { useRouter } from "next/router";
-import styles from '../styles/History.module.css';
+//import styles from '../styles/History.module.css';
 import { ListGroup, Card, Button } from "react-bootstrap";
+import styles from '../src/styles/History.module.css'
 
-import { removeFromHistory } from "../../lib/userData";
+import { removeFromHistory } from '../lib/userData';
 
 
 const History = () =>{
     const router = useRouter();
-    if(!favouritesList) return null;
-
     const [searchHistory, setSearchHistory] = useAtom(searchHistoryAtom)
+
+    if(!favouritesList) return null;
 
     let parsedHistory = [];
 

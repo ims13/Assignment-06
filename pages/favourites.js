@@ -1,8 +1,9 @@
 import React from 'react';
 import { Row, Col, Card, Container } from 'react-bootstrap';
 import { useAtom } from 'jotai';
-import { favouritesAtom } from '../../store';
-import ArtworkCard from '../../components/ArtworkCard';
+
+import { favouritesAtom } from '../store';
+import ArtworkCard from '../components/ArtworkCard';
 
 const Favorites = ()=>{
   const [favouritesList] = useAtom(favouritesAtom);

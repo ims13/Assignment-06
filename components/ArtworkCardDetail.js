@@ -17,20 +17,24 @@ const ArtworkCardDetail = ({ objectID }) => {
   const [favouritesList, setFavouritesList] = useAtom(favouritesAtom);
   const [showAdded, setShowAdded] = useState(false);
 
+  // useEffect(()=>{
+  //   setShowAdded(favouritesList?.includes(objectID)); 
+  // }, [favouritesList]);
   useEffect(()=>{
     setShowAdded(favouritesList?.includes(objectID)); 
-  }, [favouritesList]);
+  }, [favouritesList, objectID]);
 
 
   async function handleFavouritesClick() {
     if (showAdded) {
-      setFavouritesList(await removeFromFavourites(props.objectID));
+      setFavouritesList(await removeFromFavourites(objectID));
       setShowAdded(false);
     } else {
-      setFavouritesList(await addToFavourites(props.objectID));
+      setFavouritesList(await addToFavourites(objectID));
       setShowAdded(true);
     }
-  }
+}
+
   
 
   if (error) {

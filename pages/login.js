@@ -2,13 +2,16 @@ import { Card, Form, Alert, Button } from "react-bootstrap";
 
 import { useState } from 'react';
 
-import { getFavourites, getHistory } from "../../lib/userData";
-import {authenticateUser} from "../../lib/authenticate";
+//import { getFavourites, getHistory } from "../../lib/userData";
+import { getFavourites, getHistory } from "../lib/userData";
+
+import { authenticateUser } from "../lib/authenticate";
 import { useRouter } from "next/router";
 
 import { useAtom } from "jotai";
-import { searchHistoryAtom } from "../../store";
-import { favouritesAtom } from "../../store";
+
+import { searchHistoryAtom } from "../store";
+import { favouritesAtom } from "../store";
 
 
 

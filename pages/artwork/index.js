@@ -1,14 +1,15 @@
 // pages/artwork/index.js
 
-import validObjectIDList from '../../../public/data/validObjectIDList.json'
+//import validObjectIDList from '../../../public/data/validObjectIDList.json'
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Pagination, Card } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 
 import useSWR from 'swr';
 import Error from 'next/error';
+import validObjectIDList from '../../public/data/validObjectIDList.json'
+import ArtworkCard from '../../components/ArtworkCard';
 
-import ArtworkCard from '../../../components/ArtworkCard';
 
 const PER_PAGE = 12;
 

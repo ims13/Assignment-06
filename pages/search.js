@@ -5,9 +5,10 @@ import { useRouter } from 'next/router';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
-import { searchHistoryAtom } from '../../store';
+import { searchHistoryAtom } from '../store';
 import { useAtom } from 'jotai';
-import { addToHistory } from "../../lib/userData";
+
+import { addToHistory } from '../lib/userData';
 
 const AdvancedSearch = () => {
   const router = useRouter();
